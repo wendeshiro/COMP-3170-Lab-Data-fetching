@@ -1,0 +1,109 @@
+:root {
+  --row-gap: 20px;
+  --column-gap: 30px;
+}
+
+.appContainer {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.contentContainer {
+  display: grid;
+  grid-template-columns: 200px auto;
+  padding: 20px 150px;
+  column-gap: var(--column-gap);
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--row-gap);
+}
+
+.editBtn,
+.deleteBtn {
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  border: none;
+  width: 200px;
+  height: 48px;
+}
+
+.editBtn {
+  background-color: #4b81a7;
+  color: white;
+}
+
+.editBtn:enabled:hover {
+  background-color: #326182;
+}
+
+.deleteBtn {
+  background-color: #a74b4b;
+  color: #ffffff;
+}
+
+/* when it's enabled */
+.deleteBtn:enabled:hover {
+  background-color: #893939;
+}
+
+.editBtn:disabled,
+.deleteBtn:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+  filter: grayscale(20%);
+}
+
+.bookList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 200px);
+  row-gap: var(--row-gap);
+  column-gap: var(--column-gap);
+  align-content: flex-start;
+}
+
+.actionsBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 40px 0 20px 0;
+  padding: 0 150px;
+  gap: 50px;
+}
+
+.filters {
+  label {
+    margin-right: 10px;
+    font-weight: bold;
+    font-size: 18px;
+    color: #283044;
+  }
+  select {
+    padding: 4px 8px;
+    border-radius: 8px;
+    font-size: 16px;
+  }
+}
+
+.manageLoansBtn {
+  padding: 10px 18px;
+  font-size: 16px;
+  background-color: transparent;
+  color: #55471b;
+  border: 1px solid #55471b;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+  min-width: 150px;
+}
+
+.manageLoansBtn:hover {
+  background-color: rgb(234, 229, 212);
+}

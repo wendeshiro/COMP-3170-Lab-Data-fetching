@@ -1,0 +1,28 @@
+[
+  {
+    "title": "Effective JavaScript",
+    "subtitle": "68 Specific Ways to Harness the Power of JavaScript",
+    "isbn13": "9780321812186",
+    "price": "$21.99 - $44.20",
+    "image": "https://itbook.store/img/books/9780321812186.png",
+    "url": "https://itbook.store/books/9780321812186",
+    "author": "David Herman",
+    "Publisher": "Addison-Wesley",
+    "Publication Year": "2012",
+    "Pages": "240",
+    "Language": "English"
+  },
+  {
+    "title": "Introduction to Software Testing",
+    "subtitle": "A Practical Guide to Testing, Design, Automation, and Execution",
+    "isbn13": "9781484295137",
+    "price": "$26.09 - $41.67",
+    "image": "https://itbook.store/img/books/9781484295137.png",
+    "url": "https://itbook.store/books/9781484295137",
+    "author": "Panagiotis Leloudas",
+    "Publisher": "Apress",
+    "Publication Year": "2023",
+    "Pages": "211",
+    "Language": "English"
+  }
+]

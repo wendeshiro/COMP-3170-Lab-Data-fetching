@@ -1,0 +1,29 @@
+.newBookContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    height: 400px;
+    box-sizing: border-box;
+    border: #94bdd6 2px solid;
+    border-radius: 8px;
+    background-color: #d1dee6;
+    transition: background-color 0.5s;
+}
+
+.pulsBtn {
+    font-size: 22px;
+    text-align: center;
+    color: #466a83;
+    transition: color 0.5s;
+}
+
+.newBookContainer:hover {
+    background-color: #466a83;
+    cursor: pointer;
+}
+
+.newBookContainer:hover .pulsBtn {
+    color: #d1dee6;
+}
