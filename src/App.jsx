@@ -8,6 +8,7 @@ import { useState, useEffect, useRef } from "react";
 import { nanoid } from "nanoid";
 import initialBooks from "../data/books.json";
 import LoanPage from "./components/LoanPage";
+import BookDetailsPage from "./components/BookDetailsPage";
 
 export default function App() {
   const modalRef = useRef();
@@ -103,6 +104,7 @@ export default function App() {
   };
 
   const [showLoanPage, setShowLoanPage] = useState(false);
+  const [selectedBook, setSelectedBook] = useState(null);
 
   // control edit/delete availability ↓
   const selectedBooks = books.filter((b) => b.selected);
@@ -136,6 +138,8 @@ export default function App() {
       <Header />
       {showLoanPage ? (
         <LoanPage onBack={() => setShowLoanPage(false)} books={books} onLoan={handleLoan} />
+      ) : selectedBook ? (
+        <BookDetailsPage book={selectedBook} onClose={() => setSelectedBook(null)} />
       ) : (
         <>
           <div className={styles.actionsBar}>
@@ -222,6 +226,7 @@ export default function App() {
                     selected={bookData.selected}
                     loaned={bookData.loaned}
                     onSelect={() => selectBook(bookData.id)}
+                    onDetail={() => setSelectedBook(bookData)}
                   />
                 ))}
             </div>

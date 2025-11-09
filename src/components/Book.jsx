@@ -10,6 +10,7 @@ export default function Book({
   selected,
   loaned,
   onSelect,
+  onDetail,
 }) {
   return (
     <div
@@ -33,6 +34,15 @@ export default function Book({
         <span className={styles.authorText}>By {bookAuthor}</span>
       </p>
       <p className={styles.bookPrice}>{bookPrice}</p>
+      <button
+        className={styles.detailButton}
+        onClick={(e) => {
+          e.stopPropagation();
+          onDetail();
+        }}
+      >
+        Book Details
+      </button>
     </div>
   );
 }
