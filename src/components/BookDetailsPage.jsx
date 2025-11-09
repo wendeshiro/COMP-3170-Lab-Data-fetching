@@ -3,11 +3,15 @@ import { useState, useEffect } from "react";
 
 export default function BookDetailsPage({ book, onClose }) {
   const [similarBooks, setSimilarBooks] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     if (!book.publisher) return;
 
     async function fetchSimilarBooks() {
+      setLoading(true);
+      setError(null);
       try {
         const response = await fetch(`https://api.itbook.store/1.0/search/${book.publisher}`);
         if (!response.ok) {
@@ -19,11 +23,14 @@ export default function BookDetailsPage({ book, onClose }) {
         const filteredBooks = Array.isArray(data.books)
           ? data.books.filter((b) => b.url !== book.url)
           : [];
-        // Keep only the first 8 items
-        const limitedBooks = filteredBooks.slice(0, 8);
+        // Keep only the first 12 items
+        const limitedBooks = filteredBooks.slice(0, 12);
         setSimilarBooks({ ...data, books: limitedBooks });
-      } catch (error) {
-        console.error("Error fetching similar books:", error);
+      } catch (err) {
+        console.error("Error fetching similar books:", err);
+        setError(err.message || "Failed to fetch similar books");
+      } finally {
+        setLoading(false);
       }
     }
 
@@ -35,7 +42,7 @@ export default function BookDetailsPage({ book, onClose }) {
       <header className={styles.header}>
         <p className={styles.pageTitle}>Book Details</p>
         <button className={styles.closeButton} onClick={onClose}>
-          &times;
+          Back
         </button>
       </header>
 
@@ -44,29 +51,54 @@ export default function BookDetailsPage({ book, onClose }) {
         <div className={styles.bookInfo}>
           <p className={styles.bookTitle}>{book.bookTitle}</p>
           <p className={styles.bookAuthor}>By {book.bookAuthor}</p>
-          <p className={styles.bookPublisher}>Published by {book.publisher}</p>
-          <p className={styles.bookYear}>Published in {book.publication}</p>
-          <p className={styles.bookPrice}>{book.bookPrice}</p>
-          <p className={styles.bookPages}>{book.pages}</p>
-          <p className={styles.bookLanguage}>Language: {book.language}</p>
+          <table className={styles.bookInfoTable}>
+            <tbody>
+              <tr>
+                <td>Publisher</td>
+                <td>{book.publisher}</td>
+              </tr>
+              <tr>
+                <td>Published</td>
+                <td>{book.publication}</td>
+              </tr>
+              <tr>
+                <td>Price</td>
+                <td>{book.bookPrice}</td>
+              </tr>
+              <tr>
+                <td>Pages</td>
+                <td>{book.pages}</td>
+              </tr>
+              <tr>
+                <td>Language</td>
+                <td>{book.language}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
 
       <div className={styles.similarBooksSection}>
-        <p>Other Books from {book.publisher}</p>
-        {similarBooks && similarBooks.books.length > 0 ? (
-          similarBooks.books.map((similarBook) => (
-            <div key={similarBook.isbn13} className={styles.similarBook}>
-              <a href={similarBook.url} target="_blank">
-                <img src={similarBook.image} alt={similarBook.title} />
-              </a>
-              <p className={styles.similarBookTitle}>{similarBook.title}</p>
-              <p className={styles.similarBookPrice}>{similarBook.price}</p>
-            </div>
-          ))
-        ) : (
-          <p>No Other Books from {book.publisher}</p>
-        )}
+        <p className={styles.similarBooksTitle}>Other Books from {book.publisher}</p>
+        <div className={styles.similarBooksList}>
+          {loading ? (
+            <p>Loading other books from {book.publisher}</p>
+          ) : error ? (
+            <p>No other books from {book.publisher}</p>
+          ) : similarBooks && similarBooks.books.length > 0 ? (
+            similarBooks.books.map((similarBook) => (
+              <div key={similarBook.isbn13} className={styles.similarBook}>
+                <a href={similarBook.url} target="_blank">
+                  <img src={similarBook.image} alt={similarBook.title} />
+                </a>
+                <p className={styles.similarBookTitle}>{similarBook.title}</p>
+                <p className={styles.similarBookPrice}>{similarBook.price}</p>
+              </div>
+            ))
+          ) : (
+            <p>No other books from {book.publisher}</p>
+          )}
+        </div>
       </div>
     </div>
   );
