@@ -18,9 +18,9 @@ export default function Book({
       onClick={onSelect}
     >
       {loaned && <span className={styles.loanTag}>On loan</span>}
-      <a href={bookLink} target="_blank" onClick={(e) => e.stopPropagation()}>
+      {/* <a href={bookLink} target="_blank" onClick={(e) => e.stopPropagation()}> */}
         <img className={styles.bookImage} src={imgSrc} alt={imgAlt} />
-      </a>
+      {/* </a> */}
       <a
         className={styles.bookTitle}
         href={bookLink}
